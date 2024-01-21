@@ -15,6 +15,10 @@ function App() {
       return; //to prevent user to enter first input as operations
     }
 
+    if (input === "0" && value === "0") {
+      return;
+    }
+
     switch (value) {
       case "=":
         if (
@@ -29,6 +33,17 @@ function App() {
         break;
 
       case "CE":
+        for (let i = input.length - 1; i >= 0; i--) {
+          const char = input[i];
+
+          if (!/[0-9.]/.test(char)) {
+            setInput(input.substring(0, i + 1));
+          }
+        }
+
+        break;
+
+      case "C":
         setInput("");
         setResult(0);
 
