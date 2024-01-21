@@ -1,7 +1,7 @@
 export const calculatorButtons = [
     "CE",
     "C",
-    "X",
+    "<-",
     "/",
     "7",
     "8",
