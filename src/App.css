@@ -13,7 +13,14 @@ body {
 
 .app-container{
   min-height: 100vh;
-  
+  display: flex;
+  align-items: flex-end;
+}
+
+.calculator{
+  flex:1;
+
+ 
 }
 
 .output-container{
@@ -52,14 +59,19 @@ height: 100px;
 .history-list{
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 12px;
 
 }
 
 .history-container{
- width: 200px;
+ width: 220px;
  height: 100%;
  border: 1px solid #ccc;
  padding: 8px;
- 
+ display: flex;
+ flex-direction: column;
+gap: 8px;
+ align-items: center;
+height: 100vh;
+overflow-y: auto;
 }
