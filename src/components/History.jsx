@@ -1,6 +1,6 @@
 import React from "react";
 
-const History = ({ history, setHistory }) => {
+const History = ({ history, setHistory,setShowHistory }) => {
   const clearHistory = () => {
     setHistory([]);
   };
@@ -18,6 +18,7 @@ const History = ({ history, setHistory }) => {
         <button onClick={clearHistory} className="clear-history-btn">
           clear history
         </button>
+        <span className="hide-history" onClick={()=>setShowHistory(false)}>X</span>
       </div>
       <ul className="history-list">
         {history?.map((item, index) => {

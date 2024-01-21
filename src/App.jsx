@@ -93,7 +93,7 @@ function App() {
    
     <main className="main-container">
 
-      {showHistory && <History history={history} setHistory={setHistory} />}
+      {showHistory && <History history={history} setHistory={setHistory} setShowHistory={setShowHistory} />}
       <div className="calculator">
       <header className="header">
       <img src="hamburger-menu.svg" onClick={()=>setShowHistory((prev)=>(!prev))}/>
