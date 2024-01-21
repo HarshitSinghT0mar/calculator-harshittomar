@@ -86,7 +86,7 @@ function App() {
   }, [history]);
   return (
     <div className="app-container">
-   <History history={history}/>
+   <History history={history} setHistory={setHistory} />
     <div className="calculator">
       <div className="output-container">
         <div className="input">{input}</div>
