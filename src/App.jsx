@@ -1,10 +1,14 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "./App.css";
 import { calculatorButtons } from "./calculatorBtns";
+import History from "./components/History";
 
 function App() {
   const [input, setInput] = useState("");
   const [result, setResult] = useState(0);
+  const [history, setHistory] = useState(
+    JSON.parse(localStorage.getItem("calculatorHistory")) || []
+  );
 
   const operations = ["+", "-", "*", "/"];
 
@@ -27,8 +31,11 @@ function App() {
         ) {
           const evalResult = eval(input).toString();
           setResult(evalResult);
-
-          setInput("");
+          setHistory((prevHistory) => [
+           
+            `${input} = ${evalResult}`,...prevHistory
+          ]);
+        setInput('')
         }
         break;
 
@@ -73,8 +80,14 @@ function App() {
     }
   };
 
+  useEffect(() => {
+  
+    localStorage.setItem("calculatorHistory", JSON.stringify(history));
+  }, [history]);
   return (
     <div className="app-container">
+   <History history={history}/>
+    <div className="calculator">
       <div className="output-container">
         <div className="input">{input}</div>
         <div className="result">{result}</div>
@@ -93,6 +106,7 @@ function App() {
             </button>
           );
         })}
+      </div>
       </div>
     </div>
   );
