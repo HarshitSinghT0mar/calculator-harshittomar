@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import "./App.css";
 import { calculatorButtons } from "./calculatorBtns";
 import History from "./components/History";
@@ -10,7 +10,9 @@ function App() {
     JSON.parse(localStorage.getItem("calculatorHistory")) || []
   );
 
+  const [showHistory,setShowHistory]=useState(false)
   const operations = ["+", "-", "*", "/"];
+
 
   const handleUserInput = (e) => {
     const { value } = e.target;
@@ -29,14 +31,16 @@ function App() {
           !operations.includes(input.slice(-1)) &&
           input.indexOf("÷0") === -1 //to prevent infinite values
         ) {
+
           const evalResult = eval(input).toString();
           setResult(evalResult);
           setHistory((prevHistory) => [
-           
+
             `${input} = ${evalResult}`,...prevHistory
           ]);
         setInput('')
         }
+
         break;
 
       case "CE":
@@ -81,33 +85,42 @@ function App() {
   };
 
   useEffect(() => {
-  
-    localStorage.setItem("calculatorHistory", JSON.stringify(history));
+    console.log(history);
+  localStorage.setItem("calculatorHistory", JSON.stringify(history));
   }, [history]);
   return (
     <div className="app-container">
-   <History history={history} setHistory={setHistory} />
-    <div className="calculator">
-      <div className="output-container">
-        <div className="input">{input}</div>
-        <div className="result">{result}</div>
-      </div>
+   
+    <main className="main-container">
 
-      <div className="btn-container">
-        {calculatorButtons.map((btn, index) => {
-          return (
-            <button
-              onClick={handleUserInput}
-              value={btn}
-              className="btn"
-              key={index}
-            >
-              {btn}
-            </button>
-          );
-        })}
+      {showHistory && <History history={history} setHistory={setHistory} />}
+      <div className="calculator">
+      <header className="header">
+      <img src="hamburger-menu.svg" onClick={()=>setShowHistory((prev)=>(!prev))}/>
+      <h1>Calculator</h1>
+    </header>
+    
+        <div className="output-container">
+          <div className="input">{input}</div>
+          <div className="result">{result}</div>
+        </div>
+
+        <div className="btn-container">
+          {calculatorButtons.map((btn, index) => {
+            return (
+              <button
+                onClick={handleUserInput}
+                value={btn}
+                className="btn"
+                key={index}
+              >
+                {btn}
+              </button>
+            );
+          })}
+        </div>
       </div>
-      </div>
+      </main>
     </div>
   );
 }
